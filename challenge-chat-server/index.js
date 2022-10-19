@@ -49,6 +49,17 @@ server.put('/messages/:id', (req, res) => {
     }
 });
 
+server.get('/messages/search/all', (req, res) => {
+    const text = req.query.text;
+    let filteredmessages = messages.filter(message => message.text.includes(text));
+    res.status(200).send(filteredmessages);
+});
+
+server.get('/messages/latest/ten', (req, res) => {
+    const lastTenMessages = messages.slice(messages.length - 10, messages.length);
+    res.status(200).send(lastTenMessages);
+})
+
 
 server.listen(8080, () => {
     console.log('server started on port 8080');
